@@ -104,9 +104,22 @@ public final class PublicClientApplication {
     private final Context mAppContext;
     private final TokenCache mTokenCache;
 
-    // Hacked to expose token cache
-    public TokenCache getTokenCachePublic() {
-        return mTokenCache;
+    // Hacked to expose refresh token
+    public String getRefreshToken(String identifier) {
+        final String telemetryRequestId = Telemetry.generateNewRequestId();
+        final RequestContext requestContext = new RequestContext(UUID.randomUUID(), mComponent, telemetryRequestId);
+
+        List<RefreshTokenCacheItem> items = mTokenCache.getAllRefreshTokens(requestContext);
+
+        for(int i = 0; i < items.size(); i++) {
+            RefreshTokenCacheItem item = items.get(i);
+
+            if(identifier.equals(item.getUserIdentifier())) {
+                return item.getRefreshToken();
+            }
+        }
+
+        return "";
     }
 
     /** The authority the application will use to obtain tokens */
