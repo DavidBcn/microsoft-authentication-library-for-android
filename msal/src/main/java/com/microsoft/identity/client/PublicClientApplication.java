@@ -104,6 +104,11 @@ public final class PublicClientApplication {
     private final Context mAppContext;
     private final TokenCache mTokenCache;
 
+    // Hacked to expose token cache
+    public TokenCache getTokenCachePublic() {
+        return mTokenCache;
+    }
+
     /** The authority the application will use to obtain tokens */
     private String mAuthorityString;
 
