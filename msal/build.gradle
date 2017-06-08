@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'jacoco'
+// apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 // This plugin publishes msal in to the local maven repo
@@ -21,10 +21,10 @@ android {
 
     buildTypes {
         debug {
-            testCoverageEnabled true
+            testCoverageEnabled false
         }
         release {
-            testCoverageEnabled true
+            testCoverageEnabled false
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -197,6 +197,6 @@ task pmd(type: Pmd) {
 
 tasks.whenTaskAdded { task ->
     if (task.name == 'assembleDebug' || task.name == 'assembleRelease') {
-        task.dependsOn 'checkstyle', 'pmd', 'lint', 'jacocoTestReport', 'createPom', 'javadocJar', 'sourcesJar'
+        task.dependsOn 'checkstyle', 'pmd', 'lint', 'createPom', 'javadocJar', 'sourcesJar'
     }
 }
